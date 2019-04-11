@@ -67,6 +67,16 @@ function parse_query(query){
         return
     }
 
+    if(command==="getrel"){
+        let typeid = parseInt(args[0])
+        let id = parseInt(args[1])
+        if(!check_validity(id)) return
+        let result = relations.get_from_by_type(id, typeid)
+        result.forEach(r=>print_results(r.bid))
+
+        return
+    }
+
     console.log(`unknown command ${command}`)
 }
 

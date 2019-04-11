@@ -14,8 +14,10 @@ function relate(typeid, aid, bid) {
 
     if(!from[aid]) from[aid] = []
     from[aid].push(relation)
+
     if(!to[bid]) to[bid] = []
     to[bid].push(relation)
+
     if(!types[typeid]) types[typeid] = []
     types[typeid].push(relation)
     return relation
@@ -31,6 +33,11 @@ function get_from(id){
     return from[id]
 }
 
+//Returns all relations from entity id
+function get_from_by_type(id, typeid){
+    return from[id].filter(r=>r.typeid===typeid)
+}
+
 //Returns all relations to entity id
 function get_to(id){
     return to[id]
@@ -38,5 +45,6 @@ function get_to(id){
 
 module.exports = {
     relate,
-    get_type, get_from, get_to
+    get_type, get_from, get_to,
+    get_from_by_type
 }
