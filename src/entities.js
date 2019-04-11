@@ -12,14 +12,13 @@ function declare() {
 
 //Sets the value for a given entity with id
 function set_value(id, value) {
-    if(!entities[id]) return false
+    if(!entities[id]) return undefined
     entities[id].value = value
     return entities[id]
 }
 
 //Returns entity with id
 function get(id) {
-    if(!entities[id]) return false
     return entities[id]
 }
 

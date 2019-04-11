@@ -4,12 +4,25 @@ const readline = require("readline").createInterface({
 })
 
 const entities = require("./entities")
+const relations = require("./relations")
 
-function print_results(result){
-    if(result === false){
-        console.log(`unknown entity`)
-    } else {
-        console.log(`${result.id}\t${result.value} `)
+function check_validity(id){
+    if(!entities.get(id)){
+        console.log(`! unknown entity ${id}, please declare first`)
+        return false
+    }
+    return true
+}
+
+function print_results(id){
+    let e = entities.get(id)
+    console.log(`${e.id}\t${e.value} `)
+    let rels = relations.get_from(id)
+    if(rels){
+        rels.forEach(r=>{
+            let er = entities.get(r.bid)
+            console.log(`├ ${er.id}\t${er.value} `)
+        })
     }
 }
 
@@ -19,22 +32,35 @@ function parse_query(query){
 
     if(command==="declare"){
         let result = entities.declare()
-        print_results(result)
+        print_results(result.id)
         return
     }
 
     if(command==="set"){
         let id = parseInt(args[0])
         let value = args[1]
-        let result = entities.set_value(id, value)
-        print_results(result)
+        if(!check_validity(id)) return
+        entities.set_value(id, value)
+        print_results(id)
         return
     }
 
+    if(command==="relate"){
+        let aid = parseInt(args[0])
+        let bid = parseInt(args[1])
+        if(!check_validity(aid)) return
+        if(!check_validity(bid)) return
+        let result = relations.relate(aid, bid)
+        print_results(aid)
+        return
+    }
+
+
+
     if(command==="get"){
         let id = parseInt(args[0])
-        let result = entities.get(id)
-        print_results(result)
+        if(!check_validity(id)) return
+        print_results(id)
         return
     }
 
