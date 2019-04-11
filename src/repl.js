@@ -16,12 +16,13 @@ function check_validity(id){
 
 function print_results(id){
     let e = entities.get(id)
-    console.log(`${e.id}\t${e.value} `)
+    console.log(`\x1b[33m${e.id}\x1b[0m\t${e.value||""} `)
     let rels = relations.get_from(id)
     if(rels){
         rels.forEach(r=>{
             let er = entities.get(r.bid)
-            console.log(`├ ${er.id}\t${er.value} `)
+            let rtype = entities.get(r.typeid)
+            console.log(`├ ${rtype.value||rtype.id}: \t \x1b[33m${er.id}\x1b[0m ${er.value||"-"} `)
         })
     }
 }
@@ -46,11 +47,13 @@ function parse_query(query){
     }
 
     if(command==="relate"){
-        let aid = parseInt(args[0])
-        let bid = parseInt(args[1])
+        let typeid = parseInt(args[0])
+        let aid = parseInt(args[1])
+        let bid = parseInt(args[2])
+        if(!check_validity(typeid)) return
         if(!check_validity(aid)) return
         if(!check_validity(bid)) return
-        let result = relations.relate(aid, bid)
+        let result = relations.relate(typeid, aid, bid)
         print_results(aid)
         return
     }
