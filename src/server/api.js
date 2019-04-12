@@ -55,8 +55,12 @@ function parse_query(q){
             }
         }
 
-        let answer = entities.get(args.id)
-        answer.relations = relations.get_from(args.id)
+        let entity = entities.get(args.id)
+        let answer = {
+            id: entity.id,
+            value: entity.value,
+            relations: relations.get_from(args.id)
+        }
         if(answer.relations){
             answer.relations = answer.relations.map(r=>{
                 let other = entities.get(r.bid)

@@ -98,7 +98,8 @@ let App = {
                             m(".response__value",r.answer.value),
                             r.answer.relations ? r.answer.relations.map(rel=>{
                                 return m(".response__relation", [
-                                    m(".response__relation__type",rel.type.value || rel.type.id),
+                                    m(".response__relation__typeid", rel.type.id),
+                                    m(".response__relation__type",rel.type.value),
                                     m("span",":"),
                                     m(".response__relation__id",rel.other.id),
                                     m(".response__relation__value",rel.other.value),
