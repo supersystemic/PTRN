@@ -12,10 +12,15 @@ let commands = [
     {
         command: "set_value",
         params: [{name: "id", type: "id"}, {name: "value", type: "text"}]
-    }
+    },
+    {
+        command: "get",
+        params: [{name: "id", type: "id"}]
+    },
 ]
 
 let current_command = commands[0]
+let params = {}
 
 let stack = []
 
@@ -23,10 +28,14 @@ function request(){
     m.request({
         method: "POST",
         url: "http://localhost:3000/",
-        data: {query: current_command.command}
+        data: {
+            query: current_command.command,
+            args: params
+        }
     })
     .then(function(result) {
         stack.unshift(result)
+        params = {}
     })
 }
 
@@ -44,7 +53,13 @@ let App = {
                 ]),
                 m(".params",[
                     current_command.params.map(p=>{
-                        return m(".param", p.name)
+                        return m(".param", [
+                            m(".param__name",p.name),
+                            m("input.param__value",{
+                                value: params[p.name] || "",
+                                oninput: e=> params[p.name] = e.target.value
+                            })
+                        ])
                     })
                 ]),
                 m("button",{
@@ -52,7 +67,7 @@ let App = {
                 },"run")
             ]),
             m(".responses",[
-                stack.map(r=>m(".response",r.id))
+                stack.map(r=>m(".response",r.id+ "- "+r.value))
             ]),
         ])
     }
