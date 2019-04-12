@@ -54,9 +54,20 @@ function parse_query(q){
                 error: "unknown entity "+args.id
             }
         }
+
+        let answer = entities.get(args.id)
+        answer.relations = relations.get_from(args.id)
+        if(answer.relations){
+            answer.relations = answer.relations.map(r=>{
+                let other = entities.get(r.bid)
+                let type = entities.get(r.typeid)
+                return { type, other }
+            })
+        }
+
         return {
             executed: true,
-            answer: entities.get(args.id)
+            answer
         }
     }
 

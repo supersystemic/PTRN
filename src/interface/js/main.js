@@ -43,6 +43,7 @@ function request(){
             query: current_command,
             args: params
         })
+        console.log(stack);
         params = {}
     })
 }
@@ -95,6 +96,14 @@ let App = {
                                 }
                             },r.answer.id),
                             m(".response__value",r.answer.value),
+                            r.answer.relations ? r.answer.relations.map(rel=>{
+                                return m(".response__relation", [
+                                    m(".response__relation__type",rel.type.value || rel.type.id),
+                                    m("span",":"),
+                                    m(".response__relation__id",rel.other.id),
+                                    m(".response__relation__value",rel.other.value),
+                                ])
+                            }) : []
                         ] : [
                             m(".response__query",q.query),
                             r.error
