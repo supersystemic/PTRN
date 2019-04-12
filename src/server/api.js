@@ -15,24 +15,66 @@ app.use(function(req, res, next) {
   next()
 })
 
+function check_validity(id){
+    if(!entities.get(id)){
+        return false
+    }
+    return true
+}
+
 function parse_query(q){
     let query = q.query
     let args = q.args
 
     if(query==="declare"){
-        return entities.declare()
+        return {
+            executed: true,
+            answer: entities.declare()
+        }
     }
 
     if(query==="set_value"){
-        return entities.set_value(args.id, args.value)
+        if(!check_validity(args.id)){
+            return {
+                executed: false,
+                error: "unknown entity "+args.id
+            }
+        }
+
+        return {
+            executed: true,
+            answer: entities.set_value(args.id, args.value)
+        }
     }
 
     if(query==="get"){
-        return entities.get(args.id)
+        if(!check_validity(args.id)){
+            return {
+                executed: false,
+                error: "unknown entity "+args.id
+            }
+        }
+        return {
+            executed: true,
+            answer: entities.get(args.id)
+        }
     }
 
     if(query==="relate"){
-        return entities.get(args.typeid, args.aid, args.bid)
+        if(!check_validity(args.typeid)){
+            return {executed: false, error: "unknown entity "+args.typeid}
+        }
+        if(!check_validity(args.aid)){
+            return {executed: false, error: "unknown entity "+args.aid}
+        }
+        if(!check_validity(args.bid)){
+            return {executed: false, error: "unknown entity "+args.bid}
+        }
+        relations.relate(args.typeid, args.aid, args.bid)
+        return {
+            executed: true,
+            answer: entities.get(args.aid)
+        }
     }
 }
 

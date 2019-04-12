@@ -11,6 +11,14 @@
                 font-size: 14pt;
             }
 
+            input, select, button {
+                background: white;
+                border-radius: 5px;
+                padding: 5px;
+                border: 1px solid #8c8c8c;;
+            }
+
+
             .query>* {
                 display: inline-block;
                 margin-right: 20px;
@@ -26,6 +34,10 @@
                 font-size: 10pt;
                 position: absolute;
                 top: -15px;
+            }
+
+            .param__value.id {
+                width: 35px;
             }
 
             .responses {
@@ -46,8 +58,19 @@
                 display: inline-block;
             }
 
+            .response__query {
+                display: block;
+                font-size: 8pt;
+            }
+
+            .response__query>* {
+                display: inline-block;
+                margin-right: 10px;
+            }
+
             .response__id {
                 cursor: pointer;
+                width: 50px;
             }
 
             .response__id:hover {
@@ -55,8 +78,12 @@
             }
 
             .response__value {
-                margin-left: 50px;
                 font-weight: 300;
+            }
+
+            .response.error {
+                background: #e87f7f;
+                color: white;
             }
 
         </style>
