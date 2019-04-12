@@ -1,4 +1,52 @@
-var http = require('http')
+var express = require("express")
+var bodyParser = require("body-parser")
+
+const entities = require("./entities")
+const relations = require("./relations")
+
+var app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+  next()
+})
+
+function parse_query(q){
+    let query = q.query
+    let args = q.args
+
+    if(query==="declare"){
+        return entities.declare()
+    }
+
+    if(query==="set_value"){
+        return entities.set_value(args.id, args.value)
+    }
+
+    if(query==="get"){
+        return entities.get(args.id)
+    }
+
+    if(query==="relate"){
+        return entities.get(args.typeid, args.aid, args.bid)
+    }
+}
+
+
+app.post("/", function(req, res) {
+    res.status(200).send(parse_query(req.body))
+});
+
+var server = app.listen(3000, function () {
+    console.log("app running on port.", server.address().port)
+});
+
+
+/*var http = require('http')
 
 const entities = require("./entities")
 const relations = require("./relations")
@@ -54,3 +102,4 @@ http.createServer((request, response) => {
         response.end()
     })
 }).listen(8080)
+*/

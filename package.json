@@ -1,0 +1,26 @@
+{
+  "name": "ptrn",
+  "version": "0.0.1",
+  "description": "Persistently stores distributed networks and patterns of subject oriented knowledge.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config ./src/interface/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/supersystemic/PTRN.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/supersystemic/PTRN/issues"
+  },
+  "homepage": "https://github.com/supersystemic/PTRN#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mithril": "^1.1.6",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  }
+}
