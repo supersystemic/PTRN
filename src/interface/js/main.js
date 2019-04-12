@@ -67,7 +67,16 @@ let App = {
                 },"run")
             ]),
             m(".responses",[
-                stack.map(r=>m(".response",r.id+ "- "+r.value))
+                stack.map(r=>m(".response",[
+                    m(".response__id",{
+                        onclick: e=>{
+                            if(current_command.params[0].type==="id"){
+                                params[current_command.params[0].name] = r.id
+                            }
+                        }
+                    },r.id),
+                    m(".response__value",r.value),
+                ]))
             ]),
         ])
     }

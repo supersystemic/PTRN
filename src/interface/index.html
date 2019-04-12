@@ -3,6 +3,63 @@
     <head>
         <meta charset="utf-8">
         <title>PTRN</title>
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+        <style media="screen">
+            body {
+                font-family: 'Source Sans Pro', sans-serif;
+                padding: 20px;
+                font-size: 14pt;
+            }
+
+            .query>* {
+                display: inline-block;
+                margin-right: 20px;
+            }
+
+            .param {
+                display: inline-block;
+                margin-right: 10px;
+                position: relative;
+            }
+
+            .param__name {
+                font-size: 10pt;
+                position: absolute;
+                top: -15px;
+            }
+
+            .responses {
+                margin-top: 20px;
+            }
+
+            .response {
+                background: #efefef;
+                padding: 10px;
+                margin-bottom: 5px;
+            }
+
+            .response:first-child {
+                margin-bottom: 20px;
+            }
+
+            .response>* {
+                display: inline-block;
+            }
+
+            .response__id {
+                cursor: pointer;
+            }
+
+            .response__id:hover {
+                color: blue;
+            }
+
+            .response__value {
+                margin-left: 50px;
+                font-weight: 300;
+            }
+
+        </style>
     </head>
     <body>
         <script src="js/main.min.js" charset="utf-8"></script>
