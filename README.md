@@ -4,17 +4,19 @@ Persistently stores distributed networks and patterns of subject oriented knowle
 
 ## Repl
 
+You can use the interactive repl webclient to interact with the database:
+
 ```declare```
 creates id and declares memory space
 
-```set: 0,hello world```
-sets value at id 0 to "hello"
+```set: id, value```
+sets value at id to value
 
-```get: 0```
-retuns value at id 0
+```get: id```
+retuns value at id and all the relations
 
-```relate: 0,1,2```
-creates a relation between two entities with id 1 and 2, and relates them with type 0
+```relate: typeid, aid, bid```
+creates a relation between two entities with aid and bid, and relates them with typeid
 
-```getrel: 0,1```
-gets all relations of type 0 from entity 1
+```reorder: typeid, aid, oldpos, newpos```
+moves and reorders a relation of typeid from entity with aid, from oldpos to newpos
