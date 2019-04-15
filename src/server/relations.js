@@ -12,11 +12,13 @@ function relate(typeid, aid, bid) {
     }
     relations.push(relation)
 
-    if(!from[aid]) from[aid] = []
-    from[aid].push(relation)
+    if(!from[aid]) from[aid] = {}
+    if(!from[aid][typeid]) from[aid][typeid] = []
+    from[aid][typeid].push(relation)
 
-    if(!to[bid]) to[bid] = []
-    to[bid].push(relation)
+    if(!to[bid]) to[bid] = {}
+    if(!to[bid][typeid]) to[bid][typeid] = []
+    to[bid][typeid].push(relation)
 
     if(!types[typeid]) types[typeid] = []
     types[typeid].push(relation)

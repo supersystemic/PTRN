@@ -59,15 +59,15 @@ function parse_query(q){
         let answer = {
             id: entity.id,
             value: entity.value,
-            relations: relations.get_from(args.id)
         }
-        if(answer.relations){
-            answer.relations = answer.relations.map(r=>{
-                let other = entities.get(r.bid)
-                let type = entities.get(r.typeid)
-                return { type, other }
-            })
-        }
+
+        let rels = relations.get_from(args.id) || {}
+        answer.relations = Object.keys(rels).map(key=>{
+            return {
+                key: entities.get(key),
+                values: rels[key].map(rel=>entities.get(rel.bid))
+            }
+        })
 
         return {
             executed: true,
