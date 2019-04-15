@@ -25,6 +25,17 @@ function relate(typeid, aid, bid) {
     return relation
 }
 
+function reorder(typeid, aid, oldpos, newpos){
+    if(oldpos<0) return false
+    if(oldpos>=from[aid][typeid].length) return false
+    if(newpos<0) return false
+    if(newpos>=from[aid][typeid].length) return false
+
+    from[aid][typeid].splice(newpos, 0, from[aid][typeid].splice(oldpos, 1)[0])
+    
+    return true
+}
+
 //Returns all relations of type id
 function get_type(id){
     return type[id]
@@ -46,7 +57,8 @@ function get_to(id){
 }
 
 module.exports = {
-    relate,
+    relate, reorder,
     get_type, get_from, get_to,
-    get_from_by_type
+    get_from_by_type,
+
 }

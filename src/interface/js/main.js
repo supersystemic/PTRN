@@ -21,6 +21,10 @@ let commands = [
         command: "relate",
         params: [{name: "typeid", type: "id"}, {name: "aid", type: "id"}, {name: "bid", type: "id"}]
     },
+    {
+        command: "reorder",
+        params: [{name: "typeid", type: "id"}, {name: "aid", type: "id"}, {name: "oldpos", type: "pos"}, {name: "newpos", type: "pos"}]
+    },
 ]
 
 let current_command = commands[0]

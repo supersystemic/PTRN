@@ -91,6 +91,24 @@ function parse_query(q){
             answer: entities.get(args.aid)
         }
     }
+
+    if(query==="reorder"){
+        if(!check_validity(args.typeid)){
+            return {executed: false, error: "unknown entity "+args.typeid}
+        }
+        if(!check_validity(args.aid)){
+            return {executed: false, error: "unknown entity "+args.aid}
+        }
+
+        if (!relations.reorder(args.typeid, args.aid, args.oldpos, args.newpos)) {
+            return {executed: false, error: "position out of range"}
+        }
+
+        return {
+            executed: true,
+            answer: entities.get(args.aid)
+        }
+    }
 }
 
 
