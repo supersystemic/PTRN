@@ -20,3 +20,7 @@ creates a relation between two entities with aid and bid, and relates them with 
 
 ```reorder: typeid, aid, oldpos, newpos```
 moves and reorders a relation of typeid from entity with aid, from oldpos to newpos
+
+
+## Version semantics
+Objects work by semantics in time

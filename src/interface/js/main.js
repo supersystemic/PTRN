@@ -1,13 +1,13 @@
 const m = require("mithril")
 
-
-
-
-
 let commands = [
     {
         command: "declare",
         params: []
+    },
+    {
+        command: "instantiate",
+        params: [{name: "id", type: "id"}]
     },
     {
         command: "set_value",
@@ -16,6 +16,10 @@ let commands = [
     {
         command: "get",
         params: [{name: "id", type: "id"}]
+    },
+    {
+        command: "getversion",
+        params: [{name: "id", type: "id"}, {name: "version", type: "version"}]
     },
     {
         command: "relate",
