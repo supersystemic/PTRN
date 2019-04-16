@@ -10,6 +10,25 @@ let statements = [
         predicate: "is a philosopher",
         variable: "plato"
     },
+    {
+        predicate: "is a gardener",
+        variable: "plato"
+    },
+]
+
+let formulas = [
+    {
+        if: {
+            variable: "x",
+            predicate: {
+                and: ["is a philosopher", "is a gardener"]
+            }
+        },
+        then: {
+            variable: "x",
+            predicate: "is a scholar"
+        },
+    }
 ]
 
 let predicates = {}
@@ -22,5 +41,21 @@ function parse(statements) {
     })
 }
 
+function deduce(formulas, predicates){
+    formulas.forEach(formula=>{
+        let pA = formula.if.predicate
+        let resultsA = []
+        if(pA.and){
+            //intersect
+            resultsA = predicates[pA.and[0]].filter(value => -1 !== predicates[pA.and[1]].indexOf(value))
+        } else {
+            resultsA = predicates[pA]
+        }
+        let pB = formula.then.predicate
+        predicates[pB] = resultsA
+    })
+}
+
 parse(statements)
+deduce(formulas, predicates)
 console.log(predicates);
