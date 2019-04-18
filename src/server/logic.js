@@ -46,7 +46,7 @@ function deduce(formulas, predicates){
         let pA = formula.if.predicate
         let resultsA = []
         if(pA.and){
-            //intersect
+            //and is an intersection intersect
             resultsA = predicates[pA.and[0]].filter(value => -1 !== predicates[pA.and[1]].indexOf(value))
         } else {
             resultsA = predicates[pA]

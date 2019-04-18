@@ -4,7 +4,8 @@
   "description": "Persistently stores distributed networks and patterns of subject oriented knowledge.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config ./src/interface/webpack.config.js"
+    "build": "webpack --config ./src/interface/webpack.config.js",
+    "start": "node ./src/server/api.js"
   },
   "repository": {
     "type": "git",

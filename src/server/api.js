@@ -76,17 +76,32 @@ function parse_query(q){
         }
 
         let rels = relations.get_from(args.id) || {}
+
+
+        //deal with inheritance of values
+        if(rels[PARENT]!==undefined && answer.value===undefined) {
+            let parent = rels[PARENT][0].bid
+            answer.value = entities.get(parent).value
+            let parent_rels = relations.get_from(parent) || {}
+
+            console.log(rels, parent_rels)
+            //merge parent_rels with rels
+            let newrels = Object.assign({}, parent_rels)
+            Object.keys(rels).forEach(key=>{
+                rels[key].forEach((r,i)=>{
+                    if(newrels[key]===undefined) newrels[key] = []
+                    newrels[key][i] = r
+                })
+            })
+            rels = newrels
+        }
+
         answer.relations = Object.keys(rels).map(key=>{
             return {
                 key: entities.get(key),
                 values: rels[key].map(rel=>entities.get(rel.bid))
             }
         })
-
-        //deal with inheritance of values
-        if(rels[PARENT]!==undefined && answer.value===undefined) {
-            answer.value = entities.get(rels[PARENT][0].bid).value
-        }
 
         return {
             executed: true,
