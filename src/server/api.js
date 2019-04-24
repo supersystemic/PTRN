@@ -15,11 +15,21 @@ app.use(function(req, res, next) {
   next()
 })
 
+const BOOTSTRAP = entities.declare().id
+entities.set_value(BOOTSTRAP, "bootstrap")
+
+const PART = entities.declare().id
+entities.set_value(PART, "part")
+relations.relate(PART, BOOTSTRAP, PART)
+
 const PARENT = entities.declare().id
 entities.set_value(PARENT, "parent")
+relations.relate(PART, BOOTSTRAP, PARENT)
+
+
 
 function check_validity(id){
-    if(!entities.get(id)){
+    if(entities.get(id) === undefined){
         return false
     }
     return true
@@ -70,6 +80,7 @@ function parse_query(q){
         }
 
         let entity = entities.get(args.id)
+
         let answer = {
             id: entity.id,
             value: entity.value,
@@ -96,8 +107,9 @@ function parse_query(q){
             rels = newrels
         }
 
-        answer.relations = Object.keys(rels).map(key=>{
-            return {
+        answer.relations = {}
+        Object.keys(rels).forEach(key=>{
+            answer.relations[key] = {
                 key: entities.get(key),
                 values: rels[key].map(rel=>entities.get(rel.bid))
             }

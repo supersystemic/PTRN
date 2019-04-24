@@ -36,26 +36,6 @@ let params = {}
 
 let stack = []
 
-function request(){
-    m.request({
-        method: "POST",
-        url: "http://localhost:3000/",
-        data: {
-            query: current_command.command,
-            args: params
-        }
-    })
-    .then(function(result) {
-        stack.unshift({
-            result,
-            query: current_command,
-            args: params
-        })
-        console.log(stack);
-        params = {}
-    })
-}
-
 let App = {
     view: function() {
         return m("main", [

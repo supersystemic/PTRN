@@ -21,11 +21,15 @@ function set_value(id, value) {
 //Returns entity with id
 function get(id) {
     let e = entities[id]
-    return {
-        version: e.values.length,
-        id: e.id,
-        value: e.value
+    if(e!==undefined){
+        return {
+            version: e.values.length,
+            id: e.id,
+            value: e.value
+        }
     }
+    return undefined
+
 }
 
 function get_version(id, v) {
