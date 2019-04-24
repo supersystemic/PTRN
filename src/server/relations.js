@@ -22,6 +22,7 @@ function relate(typeid, aid, bid) {
 
     if(!types[typeid]) types[typeid] = []
     types[typeid].push(relation)
+
     return relation
 }
 
@@ -32,7 +33,6 @@ function reorder(typeid, aid, oldpos, newpos){
     if(newpos>=from[aid][typeid].length) return false
 
     from[aid][typeid].splice(newpos, 0, from[aid][typeid].splice(oldpos, 1)[0])
-    
     return true
 }
 

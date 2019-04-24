@@ -74,19 +74,15 @@ function parse_query(q){
         }
     }
 
-    if(query==="get"){
-        if(!check_validity(args.id)){
-            return {executed: false, error: "unknown entity "+args.id}
-        }
-
-        let entity = entities.get(args.id)
+    function get(id){
+        let entity = entities.get(id)
 
         let answer = {
             id: entity.id,
             value: entity.value,
         }
 
-        let rels = relations.get_from(args.id) || {}
+        let rels = relations.get_from(id) || {}
 
 
         //deal with inheritance of values
@@ -111,10 +107,19 @@ function parse_query(q){
         Object.keys(rels).forEach(key=>{
             answer.relations[key] = {
                 key: entities.get(key),
-                values: rels[key].map(rel=>entities.get(rel.bid))
+                values: rels[key].map(rel=>get(rel.bid))
             }
         })
 
+        return answer
+    }
+
+    if(query==="get"){
+        if(!check_validity(args.id)){
+            return {executed: false, error: "unknown entity "+args.id}
+        }
+
+        let answer = get(args.id)
         return {
             executed: true,
             answer
